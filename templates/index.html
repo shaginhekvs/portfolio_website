@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-3 fw-bold mb-3">{{ personal_info.name }}</h1>
+                <h2 class="h3 text-primary mb-4 custom-black">{{ personal_info.title }}</h2>
+                <p class="lead mb-4">
+                    <i class="fas fa-map-marker-alt text-primary me-2"></i>{{ personal_info.location }}
+                </p>
+                <div class="hero-contact mb-4">
+                    <a href="mailto:{{ personal_info.email }}" class="btn btn-outline-primary me-3">
+                        <i class="fas fa-envelope me-2"></i>Email
+                    </a>
+                    <a href="https://{{ personal_info.linkedin }}" target="_blank" class="btn btn-outline-primary me-3">
+                        <i class="fab fa-linkedin me-2"></i>LinkedIn
+                    </a>
+                    <a href="https://{{ personal_info.github }}" target="_blank" class="btn btn-outline-primary">
+                        <i class="fab fa-github me-2"></i>GitHub
+                    </a>
+                </div>
+                <a href="#about" class="btn btn-primary btn-lg">
+                    Learn More <i class="fas fa-arrow-down ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="section-title text-center mb-5">About Me</h2>
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <p class="lead">{{ summary }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Technical Skills</h2>
+        <div class="row">
+            {% for category, skills in technical_skills.items() %}
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary mb-3">
+                            <i class="fas fa-code me-2"></i>{{ category }}
+                        </h5>
+                        <div class="skills-list">
+                            {% for skill in skills %}
+                            <span class="badge bg-secondary me-2 mb-2">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Professional Experience</h2>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                {% for job in experience %}
+                <div class="experience-item mb-5">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4 class="text-primary mb-1">{{ job.title }}</h4>
+                                    <h5 class="text-muted mb-2">{{ job.company }}</h5>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <span class="badge bg-primary mb-2">{{ job.duration }}</span>
+                                    <p class="text-muted mb-0">
+                                        <i class="fas fa-map-marker-alt me-1"></i>{{ job.location }}
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <ul class="achievements-list">
+                                {% for achievement in job.achievements %}
+                                <li class="mb-2">{{ achievement }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section id="education" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Education</h2>
+        <div class="row">
+            {% for edu in education %}
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-primary">{{ edu.degree }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ edu.school }}</h6>
+                        <p class="card-text">
+                            <i class="fas fa-calendar me-2"></i>{{ edu.duration }}<br>
+                            <i class="fas fa-map-marker-alt me-2"></i>{{ edu.location }}<br>
+                            <i class="fas fa-star me-2"></i><strong>{{ edu.gpa }}</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Notable Projects</h2>
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-sm project-card">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title text-primary mb-0">{{ project.name }}</h5>
+                            {% if project.github %}
+                            <a href="{{ project.github }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>View
+                            </a>
+                            {% endif %}
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ project.role }} • {{ project.duration }}</h6>
+                        <p class="card-text mb-3">{{ project.description }}</p>
+                        <div class="technologies">
+                            <small class="text-muted">
+                                <i class="fas fa-tools me-1"></i>{{ project.technologies }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Publications Section -->
+<section id="publications" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Publications</h2>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                {% for pub in publications %}
+                <div class="publication-item mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="card-title text-primary">{{ pub.title }}</h5>
+                            <p class="card-text mb-2">
+                                <strong>Authors:</strong> {{ pub.authors }}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-2"></i>{{ pub.year }} • 
+                                    <i class="fas fa-book me-2"></i>{{ pub.venue }}
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title mb-4">Get In Touch</h2>
+                <p class="lead mb-4">
+                    I'm always interested in discussing new opportunities, innovative projects, 
+                    and collaborations in the field of software engineering and data science.
+                </p>
+                <div class="contact-info">
+                    <a href="mailto:{{ personal_info.email }}" class="btn btn-primary btn-lg me-3 mb-3">
+                        <i class="fas fa-envelope me-2"></i>Send Email
+                    </a>
+                    <a href="tel:{{ personal_info.phone }}" class="btn btn-outline-primary btn-lg mb-3">
+                        <i class="fas fa-phone me-2"></i>{{ personal_info.phone }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
