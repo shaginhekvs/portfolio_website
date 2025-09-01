@@ -17,10 +17,10 @@ def index():
     }
     
     # Summary
-    summary = """Passionate software engineer with a strong experience (>5 years) in SQL and spark query optimization, machine learning,
+    summary = """Passionate software engineer with a strong experience (>5 years) in SQL and spark query optimization, machine learning, generative AI, 
     database systems features design, development and debugging. Skilled in C++, SQL, Python, PyTorch, and various ML
     libraries. Excellent problem-solving, research, and collaboration abilities. Seeking an impactful software engineering role at
-    the intersection of query processing, statistics and machine learning."""
+    the intersection of query processing, AI and machine learning."""
     
     # Technical Skills
     technical_skills = {
@@ -38,8 +38,9 @@ def index():
             'duration': 'May 2022 – Present',
             'achievements': [
                 'Enhancing Optimizer for MySQL Heatwave leading to performance gains upto 27x in various analytics database system benchmarks: JOB, TPCH, TPCDS using machine learning and algorithmic techniques. Languages used: C++, Python, Java and Shell.',
-                'Developing vector processing and vector embedding features for RAG in MySQL HeatWave Generative AI support.',
-                'Benchmarking and optimization of MySQL heatwave query processing performance on latest ARM architecture.',
+                'Developing vector processing and vector embedding features for RAG in MySQL HeatWave Generative AI support. Implementing hnsw vector index in C++ to accelerate similarity search queries.',
+                'Developing MySQL-AI Enterprise Release feature of Chain of Thought reasoning on relational data using LangChain.',
+                'Benchmarking and optimization of MySQL heatwave query processing performance on latest ARM architecture. Optimizations involved process NUMA locality, L3 Cache-use optimization, instruction pre-fetching optimization.',
                 'Performing peer code reviews and feature design reviews.',
                 'Successfully applied to 2 US Patent applications (currently under processing) in the area of applying Machine Learning methods for query optimization.',
                 'Development and deployment of machine learning models for cardinality estimation, query optimization decisions.',
@@ -53,9 +54,11 @@ def index():
             'location': 'Lausanne, Switzerland',
             'duration': 'Feb 2021 – April 2022',
             'achievements': [
-                'Developed scalable data pipelines (up-to billion records) and robust data ontology for client using PySpark, ElasticSearch, Palantir Foundry, MS SQL Server for dashboards used by CEO, CFO , MDs and 1000s of analysts.',
-                'Developed AI and ML models for various client usecases like pricing models for reinsurance contracts.',
-                'Data platform, ML model catalog architecture design and review for clients.'
+                'Developed scalable data pipelines (up-to billion records) and robust data ontology for client using PySpark, ElasticSearch, Palantir Foundry, MS SQL Server for dashboards used by CEO, CFO , MDs and 1000s of analysts at Swiss Re.',
+                'Developed AI and ML models for various client usecases like pricing models for reinsurance contracts using hierarchical encoding, xgboost model.',
+                'Improving Anti Money Laundering models at Credit Suisse using Graph Machine learning, and feature extraction on knowledge graphs build on neo4j via DeepWalk and Node2Vec. ',
+                'Developed Model Catalog for AI Center of Excellence at Swiss Re leveraging Palantir Model auto-registry, Slate dashboard. Dashboard used as main hub of model governance and approvals.',
+                'Data platform architecture design and review for Julius Baer, identifying current and potential future scalability, usability and reliability, and suggesting architecture changes needed. Final solution leverages Apache Calcite, Hive, Iceberg, Dataiku.'
             ]
         },
         {
@@ -111,11 +114,27 @@ def index():
     projects = [
         {
             'name': 'NxTreasury',
-            'role': 'Technical Advisor',
+            'role': 'Technical Advisor (CTO as a service)',
             'duration': 'September 2024 - Now',
-            'technologies': 'Python, LLM, Crew AI, Github',
-            'description': 'Web development of https://www.nxtreasury.com using bootstrap, ReactJS frontend, Python flask backend. Architecture setup, devops deployment using Github Actions, Azure Webapps. Finetuning LLM using AWS for compliance, transaction screening, financial contract management on AWS. Deploying Agents fleet for transactions execution, risk screening using crew AI.',
+            'technologies': 'Python, vLLM, Crew AI, Langgraph',
+            'description': 'Web development of https://www.nxtreasury.com using bootstrap, ReactJS frontend, Python flask backend. Integration with web3 ethereum blockchain for transaction execution. Architecture setup, devops deployment using Github Actions, Azure Webapps. Finetuning LLM using AWS for financial contract management on AWS using CoT reasoning using langgchain. Deploying Agents fleet for transactions execution, risk screening using crew AI and laggraph. Successfully applied for and awarded Azure Startup grant, NVIDIA startup grant, AWS Activate grant. Watch the demo video at  https://www.youtube.com/watch?v=9w6u0tVnlAs',
             'github': 'https://www.nxtreasury.com'
+        },
+        {
+            'name': 'Metoo Analysis',
+            'role': 'Student project',
+            'duration': '2018',
+            'technologies': 'Python, Spark',
+            'description': 'Big Data Analysis using Spark to analyze metoo movement on twitter.',
+            'github': 'https://shaginhekvs.github.io/ada_course/'
+        },
+        {
+            'name': 'ChatBot',
+            'role': 'Student project',
+            'duration': '2018',
+            'technologies': 'Python, LLMs',
+            'description': 'Building a chatbot by using sequence to sequence ML model implemented with Transformer.',
+            'github': 'https://github.com/shaginhekvs/ANNproject'
         },
         {
             'name': 'AggMo',
@@ -123,7 +142,7 @@ def index():
             'duration': '2020',
             'technologies': 'Python, Pytorch',
             'description': 'Implementing a Machine Learning framework using PyTorch with a custom optimizer AggMo.',
-            'github': 'https://github.com/alialamiidrissi/DL_Project'
+            'github': 'https://github.com/shaginhekvs/DL_Project'
         },
         {
             'name': 'NSM operators',
@@ -148,23 +167,8 @@ def index():
             'technologies': 'Python, Graphs',
             'description': 'Using Transductive learning and Signal Processing on Graphs to predict votes of US senators.',
             'github': 'https://github.com/lkieliger/US-Senators'
-        },
-        {
-            'name': 'Metoo Analysis',
-            'role': 'Student project',
-            'duration': '2018',
-            'technologies': 'Python, Spark',
-            'description': 'Big Data Analysis using Spark to analyze metoo movement on twitter.',
-            'github': 'https://shaginhekvs.github.io/ada_course/'
-        },
-        {
-            'name': 'ChatBot',
-            'role': 'Student project',
-            'duration': '2018',
-            'technologies': 'Python, LLMs',
-            'description': 'Building a chatbot by using sequence to sequence ML model implemented with Transformer.',
-            'github': 'https://github.com/shaginhekvs/ANNproject'
         }
+
     ]
     
     # Publications
@@ -191,6 +195,11 @@ def index():
                          education=education,
                          projects=projects,
                          publications=publications)
+
+@app.route('/palantir-model-change')
+def palantir_model_change():
+    return render_template('palantir-model-change.html')
+
 
 if __name__ == '__main__':
     app.run(debug=False)

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interoperability: Palantir Foundry to Databricks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is structured as a narrative journey that transforms the linear pitch deck into an exploratory experience. It starts with a high-level summary (Hero), defines the problem (The Challenge), presents the core interactive solution (The Workflow), allows users to drill into details of each step, showcases the value proposition (The Benefits), and ends with a clear call to action (Next Steps). This structure was chosen because it guides the user logically from 'why' to 'how' to 'what's in it for me,' making a complex technical process understandable. The centerpiece is the interactive workflow diagram, which encourages user engagement and non-linear exploration of the process details, a significant improvement over a static presentation. -->
+    <!-- Visualization & Content Choices: The central piece is an interactive process flow diagram built with HTML/CSS, not a chart library. Report Info: 3-step process. -> Goal: Organize/Inform. -> Viz Method: Clickable styled divs connected by arrows. -> Interaction: Clicking a step reveals its detailed description below and highlights the active step. -> Justification: This is the most intuitive way to represent a multi-stage process, turning passive reading into active exploration. For the 'Benefits' section, cards are used. Report Info: 4 key benefits. -> Goal: Inform/Compare. -> Viz Method: A responsive grid of cards. -> Interaction: Subtle hover effects. -> Justification: Cards break down information into digestible chunks, and a grid layout allows for easy comparison. No quantitative data exists in the source, so no charts were needed. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        .active-step {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .detail-pane {
+            transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .detail-pane.visible {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .step-arrow {
+            color: #d1d5db;
+        }
+    </style>
+</head>
+
+<body class="bg-stone-50 text-stone-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Unlocking Palantir Foundry AIP Model
+                Interoperability</h1>
+            <p class="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto"> We offer consulting to port your Palantir
+                Foundry models to Databricks fast and clean. This migration is fully feasible and typically smooth.
+                Most Foundry models whether they are PyTorch or TensorFlow or scikit-learn based export cleanly to ONNX,
+                and there are multiple
+                routes (direct ONNX export, safetensor, custom serialization) depending on your pipeline.
+                We’ve done this before: same accuracy targets, lower infra cost, and faster release cadence. Please read
+                further to understand the scope of entire project. </p>
+        </header>
+
+        <main>
+            <section id="challenge" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">The Challenge: The Walled Gardens of AI</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Today's AI landscape is powerful but often
+                    fragmented, leading to friction that slows innovation and increases operational overhead.</p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-stone-200">
+                        <div class="text-4xl mb-4 text-blue-500">🧱</div>
+                        <h3 class="text-xl font-bold mb-2">Platform Silos</h3>
+                        <p class="text-stone-600">Models built in Foundry for ontology-driven development often need to
+                            be used in Databricks where enterprise data and analytics workflows live.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-stone-200">
+                        <div class="text-4xl mb-4 text-blue-500">🔒</div>
+                        <h3 class="text-xl font-bold mb-2">Vendor Lock-In</h3>
+                        <p class="text-stone-600">Models trained in one environment are difficult to move, forcing
+                            re-engineering and limiting flexibility.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-stone-200">
+                        <div class="text-4xl mb-4 text-blue-500">🚀</div>
+                        <h3 class="text-xl font-bold mb-2">Scalability Gaps</h3>
+                        <p class="text-stone-600">Applying a sophisticated model to petabytes of data in Spark pipelines
+                            requires a bridge from the training environment.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="workflow" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">The Solution: An Interactive Workflow</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">We propose a simple, powerful, and
+                    open-standard workflow that bridges this gap. Click on each step to explore the details.</p>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+                    <div id="step-foundry"
+                        class="workflow-step cursor-pointer bg-white p-6 rounded-lg shadow-md border-2 border-transparent w-full md:w-64 text-center transition-all duration-300">
+                        <h3 class="text-lg font-bold  text-blue-600">1. Train in Palantir Foundry</h3>
+                    </div>
+                    <div class="step-arrow text-4xl font-light transform md:-rotate-0 rotate-90">➔</div>
+                    <div id="step-onnx"
+                        class="workflow-step cursor-pointer bg-white p-6 rounded-lg shadow-md border-2 border-transparent w-full md:w-64 text-center transition-all duration-300">
+                        <h3 class="text-lg font-bold">2. Export via ONNX</h3>
+                    </div>
+                    <div class="step-arrow text-4xl font-light transform md:-rotate-0 rotate-90">➔</div>
+                    <div id="step-databricks"
+                        class="workflow-step cursor-pointer bg-white p-6 rounded-lg shadow-md border-2 border-transparent w-full md:w-64 text-center transition-all duration-300">
+                        <h3 class="text-lg font-bold">3. Deploy in Databricks</h3>
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <div id="details-foundry"
+                        class="detail-pane bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-4">Step 1: Train & Export from Palantir Foundry</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-700">
+                            <li><strong>Build Your Model:</strong> Leverage Foundry's powerful, ontology-aware model
+                                development environment to train highly accurate models using frameworks like
+                                TensorFlow, PyTorch, or Scikit-learn.</li>
+                            <li><strong>Export to ONNX:</strong> Once trained, instead of saving in a platform-specific
+                                format, export your model to the ONNX (Open Neural Network Exchange) format. ONNX acts
+                                like a universal translator, capturing the model's architecture and parameters in a
+                                portable file.</li>
+                        </ul>
+                        <p class="mt-4 font-bold text-blue-600">Key Takeaway: You get a best-in-class training
+                            experience, resulting in a single, standardized `.onnx` file completely decoupled from its
+                            original ecosystem.</p>
+                    </div>
+                    <div id="details-onnx"
+                        class="detail-pane bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-4">Step 2: Import into Databricks</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-700">
+                            <li><strong>Bring Your Model Home:</strong> The exported `.onnx` file can be easily uploaded
+                                and managed within the Databricks environment.</li>
+                            <li><strong>Native Integration:</strong> Databricks provides excellent support for ONNX. You
+                                can load the model using libraries like `onnxruntime`, which is optimized for
+                                high-performance inference.</li>
+                            <li><strong>Centralized Model Management:</strong> Register the imported ONNX model in the
+                                Databricks Model Registry for versioning, staging, and governance, just like any other
+                                model.</li>
+                        </ul>
+                        <p class="mt-4 font-bold text-blue-600">Key Takeaway: Your model is no longer a foreign asset.
+                            It's now a first-class citizen within your Databricks workspace, right next to your data in
+                            Delta Lake.</p>
+                    </div>
+                    <div id="details-databricks"
+                        class="detail-pane bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-4">Step 3: Integrate into Spark ML Pipelines</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-700">
+                            <li><strong>Create a Spark UDF:</strong> Wrap your ONNX model in a Spark User-Defined
+                                Function (UDF). This makes your model callable directly on data within a Spark
+                                DataFrame.</li>
+                            <li><strong>Large-Scale, Distributed Inference:</strong> Apply this UDF to massive datasets.
+                                Spark automatically distributes the workload across your cluster for efficient
+                                inference.</li>
+                            <li><strong>Full Pipeline Integration:</strong> The UDF becomes a stage in your existing
+                                Spark ML or ETL pipelines, chained with data preprocessing and feature engineering
+                                steps.</li>
+                        </ul>
+                        <p class="mt-4 font-mono bg-stone-100 p-3 rounded text-sm text-stone-800">Example: `Data Loading
+                            -> Feature Engineering -> ONNX Model UDF -> Save Predictions`</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="export-strategies" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Multiple Foundry Model Export Strategies</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">While ONNX provides a standardized
+                    approach, Palantir Foundry supports multiple export methods depending on your specific use case,
+                    model type, and target environment. The diagram below illustrates various portability options
+                    available.</p>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                    <div class="text-center mb-6">
+                        <object data="{{url_for('static' , filename='model_change_graphics.svg')}}" type="image/svg+xml"
+                            class="w-full max-w-4xl mx-auto">
+                            <img src="{{url_for('static' , filename='model_change_graphics.svg')}}"
+                                alt="Model Portability Strategies Diagram" class="w-full max-w-4xl mx-auto">
+                        </object>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 mt-8">
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-blue-600">Standard Export Options</h3>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>ONNX Export:</strong> Universal format for neural networks, ideal for
+                                    cross-platform deployment</li>
+                                <li><strong>Safetensors:</strong> Optimized for large language models, provides
+                                    efficient serialization</li>
+                                <li><strong>Custom Serialization:</strong> Framework-specific formats (TensorFlow
+                                    SavedModel, PyTorch state_dict)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-4 text-blue-600">Advanced Considerations</h3>
+                            <ul class="list-disc list-inside space-y-2 text-stone-700">
+                                <li><strong>Foundry-specific Formats:</strong> Proprietary serialization for maximum
+                                    compatibility within Palantir ecosystem</li>
+                                <li><strong>Version Control Integration:</strong> Git-based model versioning for
+                                    reproducible deployments</li>
+                                <li><strong>Object Storage Export:</strong> Direct upload to cloud storage for
+                                    distributed access</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="mt-6 text-stone-600 text-center">Each export method offers different trade-offs between
+                        portability, performance, and ecosystem compatibility. Choose based on your target deployment
+                        environment and performance requirements.</p>
+                </div>
+            </section>
+
+            <section id="benefits" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Why This is a Game-Changer</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">This standardized workflow dramatically
+                    simplifies deployment and accelerates the path from model development to production.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Flexibility</h3>
+                        <p class="text-stone-600">Choose the best platform for training (Foundry) and the best for data
+                            processing and inference (Databricks) with no vendor lock-in.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Massive Scalability</h3>
+                        <p class="text-stone-600">Go from a model trained on a single machine to running predictions
+                            across your entire data lake with the power of Spark.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Unified Analytics & AI</h3>
+                        <p class="text-stone-600">Stop moving data to your models. Bring your models to your data,
+                            integrating AI into the heart of your enterprise data platform.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Simplified MLOps</h3>
+                        <p class="text-stone-600">This standardized workflow dramatically simplifies deployment and
+                            reduces custom engineering effort.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="next-steps" class="text-center bg-blue-600 text-white py-16 rounded-lg">
+                <h2 class="text-3xl font-bold mb-4">Conclusion & Next Steps</h2>
+                <p class="mb-8 max-w-2xl mx-auto">By leveraging ONNX,
+                    custom serialization, safetensors, code repositories, and data export to object storage, you can
+                    ensure that your models trained in AIP are portable, reusable, and free from vendor lock-in. This
+                    allows you to seamlessly integrate your models into Databricks Spark ML pipelines and other
+                    platforms, maximizing the value of your machine learning investments. </p>
+                <a href="mailto:keshav@nxtreasury.com?subject=Pilot Project Inquiry">
+                    <button
+                        class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-stone-100 transition-colors duration-300">Email
+                        to keshav@nxtreasury.com to start a Pilot Project</button>
+                </a>
+                <a>
+                    <p> <br> </p><button
+                        class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-stone-100 transition-colors duration-300 class=mt-4">If
+                        you are interested in more details, please refer to <a
+                            href="https://docs.google.com/document/d/1DtdjJcP_w1hbs6S4t5LZZEiryljkT8Gfcd2tsjiU9yc/edit?usp=sharing"
+                            target="_blank" class="underline hover:no-underline"><strong>this
+                                document</strong></a>.</button>
+                </a>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 text-stone-500">
+            <p>&copy; 2025 AI Interoperability Solutions. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const steps = {
+                foundry: document.getElementById('step-foundry'),
+                onnx: document.getElementById('step-onnx'),
+                databricks: document.getElementById('step-databricks')
+            };
+
+            const details = {
+                foundry: document.getElementById('details-foundry'),
+                onnx: document.getElementById('details-onnx'),
+                databricks: document.getElementById('details-databricks')
+            };
+
+            const allSteps = Object.values(steps);
+            const allDetails = Object.values(details);
+
+            function showDetails(stepKey) {
+                allSteps.forEach(step => step.classList.remove('active-step'));
+                allDetails.forEach(detail => detail.classList.remove('visible'));
+
+                if (steps[stepKey] && details[stepKey]) {
+                    steps[stepKey].classList.add('active-step');
+                    details[stepKey].classList.add('visible');
+                }
+            }
+
+            Object.keys(steps).forEach(key => {
+                steps[key].addEventListener('click', () => showDetails(key));
+            });
+
+            showDetails('foundry');
+        });
+    </script>
+</body>
+
+</html>
