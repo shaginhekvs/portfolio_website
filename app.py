@@ -114,8 +114,24 @@ def index():
             'role': 'Technical Advisor',
             'duration': 'September 2024 - Now',
             'technologies': 'Python, LLM, Crew AI, Github',
-            'description': 'Web development of https://www.nxtreasury.com using bootstrap, ReactJS frontend, Python flask backend. Architecture setup, devops deployment using Github Actions, Azure Webapps. Finetuning LLM using AWS for compliance, transaction screening, financial contract management on AWS. Deploying Agents fleet for transactions execution, risk screening using crew AI.',
+            'description': 'Web development of https://www.nxtreasury.com using bootstrap, ReactJS frontend, Python flask backend. Architecture setup, devops deployment using Github Actions, Azure Webapps. Finetuning LLM using AWS for compliance, transaction screening, financial contract management on AWS. Deploying Agents fleet for transactions execution, risk screening using crew AI. Successfully applied for and awarded Azure Startup grant, NVIDIA startup grant, AWS Activate grant. Watch the demo video at  https://www.youtube.com/watch?v=9w6u0tVnlAs',
             'github': 'https://www.nxtreasury.com'
+        },
+        {
+            'name': 'Metoo Analysis',
+            'role': 'Student project',
+            'duration': '2018',
+            'technologies': 'Python, Spark',
+            'description': 'Big Data Analysis using Spark to analyze metoo movement on twitter.',
+            'github': 'https://shaginhekvs.github.io/ada_course/'
+        },
+        {
+            'name': 'ChatBot',
+            'role': 'Student project',
+            'duration': '2018',
+            'technologies': 'Python, LLMs',
+            'description': 'Building a chatbot by using sequence to sequence ML model implemented with Transformer.',
+            'github': 'https://github.com/shaginhekvs/ANNproject'
         },
         {
             'name': 'AggMo',
@@ -123,7 +139,7 @@ def index():
             'duration': '2020',
             'technologies': 'Python, Pytorch',
             'description': 'Implementing a Machine Learning framework using PyTorch with a custom optimizer AggMo.',
-            'github': 'https://github.com/alialamiidrissi/DL_Project'
+            'github': 'https://github.com/shaginhekvs/DL_Project'
         },
         {
             'name': 'NSM operators',
@@ -148,23 +164,8 @@ def index():
             'technologies': 'Python, Graphs',
             'description': 'Using Transductive learning and Signal Processing on Graphs to predict votes of US senators.',
             'github': 'https://github.com/lkieliger/US-Senators'
-        },
-        {
-            'name': 'Metoo Analysis',
-            'role': 'Student project',
-            'duration': '2018',
-            'technologies': 'Python, Spark',
-            'description': 'Big Data Analysis using Spark to analyze metoo movement on twitter.',
-            'github': 'https://shaginhekvs.github.io/ada_course/'
-        },
-        {
-            'name': 'ChatBot',
-            'role': 'Student project',
-            'duration': '2018',
-            'technologies': 'Python, LLMs',
-            'description': 'Building a chatbot by using sequence to sequence ML model implemented with Transformer.',
-            'github': 'https://github.com/shaginhekvs/ANNproject'
         }
+
     ]
     
     # Publications
