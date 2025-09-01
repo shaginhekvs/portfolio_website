@@ -4,7 +4,7 @@
 <!-- Hero Section -->
 <section id="home" class="hero-section">
     <div class="container">
-        <div class="row align-items-center min-vh-100">
+        <div class="row align-items-center min-vh-75">
             <div class="col-lg-8 mx-auto text-center">
                 <h1 class="display-3 fw-bold mb-3">{{ personal_info.name }}</h1>
                 <h2 class="h3 text-primary mb-4 custom-black">{{ personal_info.title }}</h2>
@@ -33,12 +33,38 @@
 <!-- About Section -->
 <section id="about" class="py-5">
     <div class="container">
+        <h2 class="section-title text-center mb-5">About Me</h2>
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="section-title text-center mb-5">About Me</h2>
-                <div class="card shadow-sm">
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100">
                     <div class="card-body p-4">
+                        <h5 class="card-title text-primary mb-3">About Me</h5>
                         <p class="lead">{{ summary }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-primary mb-3">Latest Blogs</h5>
+                        <div class="mb-3">
+                            <a href="https://medium.com/@shaginhekvs" target="_blank"
+                                class="btn btn-outline-primary btn-sm mb-3">
+                                <i class="fab fa-medium me-2"></i>View All Blogs
+                            </a>
+                        </div>
+                        <div class="blog-posts">
+                            {% for blog in blogs %}
+                            <div class="blog-post mb-3">
+                                <h6 class="mb-2">
+                                    <a href="{{ blog.url }}" target="_blank" class="text-decoration-none text-primary">
+                                        {{ blog.title }}
+                                    </a>
+                                </h6>
+                                <small class="text-muted">{{ blog.description }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,7 +206,7 @@
                             </p>
                             <p class="card-text">
                                 <small class="text-muted">
-                                    <i class="fas fa-calendar me-2"></i>{{ pub.year }} • 
+                                    <i class="fas fa-calendar me-2"></i>{{ pub.year }} •
                                     <i class="fas fa-book me-2"></i>{{ pub.venue }}
                                 </small>
                             </p>
@@ -200,12 +226,12 @@
             <div class="col-lg-8 mx-auto text-center">
                 <h2 class="section-title mb-4">Get In Touch</h2>
                 <p class="lead mb-4">
-                    I'm always interested in discussing new opportunities, innovative projects, 
+                    I'm always interested in discussing new opportunities, innovative projects,
                     and collaborations in the field of software engineering and data science.
                 </p>
                 <div class="contact-info">
                     <a href="mailto:{{ personal_info.email }}" class="btn btn-primary btn-lg me-3 mb-3">
-                        <i class="fas fa-envelope me-2"></i>Send Email
+                        <i class="fas fa-envelope me-2"></i> Send Email
                     </a>
                     <a href="tel:{{ personal_info.phone }}" class="btn btn-outline-primary btn-lg mb-3">
                         <i class="fas fa-phone me-2"></i>{{ personal_info.phone }}
