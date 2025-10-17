@@ -204,9 +204,9 @@ def index():
             'description': 'GPU performance optimization guide.'
         },
         {
-            'title': 'First Nginx App Deployment Using K8s on Turing Pi Cluster',
-            'url': 'https://medium.com/@shaginhekvs/first-nginx-app-deployment-using-k8s-on-turing-pi-cluster-8fb469ede6cd',
-            'description': 'Kubernetes deployment tutorial.'
+            'title': 'From Zero to (semi-hero) Palantir Foundry AIP Reasoning Agents MCP ETL-ish in 3 Hours',
+            'url': 'https://medium.com/@shaginhekvs/from-zero-to-semi-hero-palantir-foundry-aip-reasoning-agents-mcp-etl-ish-in-3-hours-b00f1f48fe23',
+            'description': 'Building reasoning agents using Palantir Foundry, MCP, and ETL concepts.'
         },{
             'title': 'From Zero to (semi-)hero in MCP Toolbox for databases',
             'url': 'https://medium.com/@shaginhekvs/from-zero-to-semi-hero-in-mcp-toolbox-for-databases-2da802839fb6',
@@ -227,6 +227,10 @@ def index():
 @app.route('/palantir-model-change')
 def palantir_model_change():
     return render_template('palantir-model-change.html')
+
+@app.route('/foundry-consultant')
+def foundry_consultant():
+    return render_template('foundry-consultant.html')
 
 
 if __name__ == '__main__':

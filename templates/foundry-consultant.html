@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palantir Foundry Consulting Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Warm Neutrals Palette -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        .active-step {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .detail-pane {
+            transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .detail-pane.visible {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .step-arrow {
+            color: #d1d5db;
+        }
+    </style>
+</head>
+
+<body class="bg-stone-50 text-stone-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Palantir Foundry Consulting Services</h1>
+            <p class="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto">I provide expert guidance on Palantir Foundry
+                implementations, model development, data ontology design, and platform optimization. With extensive
+                experience in scalable data pipelines, AI model catalogs, and ontology-driven development, I help
+                organizations unlock the full potential of Palantir Foundry for their data and analytics needs.</p>
+        </header>
+
+        <main>
+            <section id="expertise" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">My Palantir Foundry Expertise</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Leveraging over 5 years of hands-on
+                    experience with Palantir Foundry across various industries including reinsurance, financial
+                    compliance, and enterprise data platforms.</p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-stone-200">
+                        <div class="text-4xl mb-4 text-blue-500">📊</div>
+                        <h3 class="text-xl font-bold mb-2">Scalable Data Pipelines</h3>
+                        <p class="text-stone-600">Designed and implemented pipelines processing billions of records
+                            using PySpark and Foundry ontology for Swiss Re's COO dashboard and thousands of analysts.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-stone-200">
+                        <div class="text-4xl mb-4 text-blue-500">🤖</div>
+                        <h3 class="text-xl font-bold mb-2">AI Model Catalogs</h3>
+                        <p class="text-stone-600">Built comprehensive model governance platforms with auto-registry
+                            systems, Slate dashboards, and approval workflows for AI Center of Excellence at Swiss Re.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-stone-200">
+                        <div class="text-4xl mb-4 text-blue-500">🕵️</div>
+                        <h3 class="text-xl font-bold mb-2">Graph ML Applications</h3>
+                        <p class="text-stone-600">Developed Graph Machine Learning models for financial compliance and
+                            fraud detection using Foundry, Neo4J, Node2Vec, and DeepWalk algorithms at Credit Suisse.
+                        </p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 mt-12 text-center">
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Data Ontology Design</h3>
+                        <p class="text-stone-600">Expert in building robust data ontologies that enable semantic
+                            understanding and scalable analytics across large enterprises.</p>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Platform Optimization</h3>
+                        <p class="text-stone-600">Advanced skills in query optimization, performance tuning, and
+                            integrating Foundry with broader data ecosystems like Databricks and AWS.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Consulting Services Offered</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">End-to-end support from planning to
+                    implementation and optimization for your Palantir Foundry projects.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Strategic Planning</h3>
+                        <p class="text-stone-600">Architecture assessment, roadmap development, and integration planning
+                            for Foundry implementations.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Ontology Design</h3>
+                        <p class="text-stone-600">Creation of semantic data models and ontology frameworks for
+                            enterprise knowledge graphs.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Pipeline Development</h3>
+                        <p class="text-stone-600">Building scalable ETL/ELT pipelines with PySpark, integrating with
+                            external data sources and analytics platforms.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">ML Implementation</h3>
+                        <p class="text-stone-600">Developing and deploying machine learning models within Foundry,
+                            including model governance and monitoring.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="interop" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Model Interoperability & Migration</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Specializing in seamless model portability
+                    from Palantir Foundry to other platforms like Databricks, ensuring no vendor lock-in.</p>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+                    <div id="step-foundry"
+                        class="workflow-step cursor-pointer bg-white p-6 rounded-lg shadow-md border-2 border-transparent w-full md:w-64 text-center transition-all duration-300">
+                        <h3 class="text-lg font-bold  text-blue-600">1. Train in Palantir Foundry</h3>
+                    </div>
+                    <div class="step-arrow text-4xl font-light transform md:-rotate-0 rotate-90">➔</div>
+                    <div id="step-onnx"
+                        class="workflow-step cursor-pointer bg-white p-6 rounded-lg shadow-md border-2 border-transparent w-full md:w-64 text-center transition-all duration-300">
+                        <h3 class="text-lg font-bold">2. Export via ONNX</h3>
+                    </div>
+                    <div class="step-arrow text-4xl font-light transform md:-rotate-0 rotate-90">➔</div>
+                    <div id="step-databricks"
+                        class="workflow-step cursor-pointer bg-white p-6 rounded-lg shadow-md border-2 border-transparent w-full md:w-64 text-center transition-all duration-300">
+                        <h3 class="text-lg font-bold">3. Deploy Elsewhere</h3>
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <div id="details-foundry"
+                        class="detail-pane bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-4">Develop Models in Foundry Environment</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-700">
+                            <li><strong>Ontology-Aware ML:</strong> Leverage Foundry's powerful semantic data
+                                understanding to train highly accurate models using TensorFlow, PyTorch, or
+                                Scikit-learn.</li>
+                            <li><strong>Enterprise-Grade Features:</strong> Benefit from integrated data governance,
+                                collaborative model development, and comprehensive monitoring tools.</li>
+                        </ul>
+                    </div>
+                    <div id="details-onnx"
+                        class="detail-pane bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-4">Export Models with Multiple Strategies</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-700">
+                            <li><strong>ONNX Export:</strong> Universal format for neural networks, ideal for
+                                cross-platform deployment.</li>
+                            <li><strong>Safetensors:</strong> Optimized for large language models, provides efficient
+                                serialization.</li>
+                            <li><strong>Custom Serialization:</strong> Framework-specific formats for maximum
+                                compatibility.</li>
+                        </ul>
+                        <p class="mt-4 font-bold text-blue-600">Choose the right export method based on your target
+                            environment and performance requirements.</p>
+                    </div>
+                    <div id="details-databricks"
+                        class="detail-pane bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-2xl font-bold mb-4">Deploy to Target Platform</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-700">
+                            <li><strong>Seamless Integration:</strong> Import exported models into Databricks, AWS
+                                SageMaker, or other platforms using native ONNX support.</li>
+                            <li><strong>Scalable Inference:</strong> Deploy models in distributed environments for
+                                large-scale scoring and prediction tasks.</li>
+                            <li><strong>Unified Analytics:</strong> Bring your models to your data, integrating AI into
+                                the heart of your enterprise data platform.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="case-studies" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Case Studies & Achievements</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600">Swiss Re Data Pipeline</h3>
+                        <p class="text-stone-600 mb-4">Built scalable ontology-driven data pipelines processing billions
+                            of records for COO dashboards used by executives and thousands of analysts.</p>
+                        <ul class="list-disc list-inside space-y-1 text-stone-700">
+                            <li>Technologies: PySpark, ElasticSearch, Palantir Foundry, MS SQL Server</li>
+                            <li>Impact: Enabled scalable analytics and reporting for enterprise operations</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600">AI Center of Excellence</h3>
+                        <p class="text-stone-600 mb-4">Developed model catalog and governance platform using Foundry's
+                            auto-registry and Slate dashboard for AI/ML operations.</p>
+                        <ul class="list-disc list-inside space-y-1 text-stone-700">
+                            <li>Technologies: Palantir Slate, Model Registry, Workflow Engine</li>
+                            <li>Impact: Centralized AI governance and approval processes for enterprise AI initiatives
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600">Financial Fraud Detection</h3>
+                        <p class="text-stone-600 mb-4">Developed Graph ML models for financial compliance using Foundry,
+                            Neo4J, and knowledge graphs built via DeepWalk and Node2Vec.</p>
+                        <ul class="list-disc list-inside space-y-1 text-stone-700">
+                            <li>Technologies: Palantir Foundry, Neo4J, Graph ML, Node2Vec</li>
+                            <li>Impact: Enhanced fraud detection capabilities using advanced graph analytics</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg border border-stone-200">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600">Platform Architecture Review</h3>
+                        <p class="text-stone-600 mb-4">Conducted architecture assessment for Julius Baer, identifying
+                            scalability improvements and suggesting integrations with Apache Calcite, Hive, and Iceberg.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 text-stone-700">
+                            <li>Technologies: Dataiku, Apache Calcite, Hive, Iceberg</li>
+                            <li>Impact: Directed future-proof data platform architecture decisions</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="benefits" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4">Why Choose My Foundry Consulting Services</h2>
+                <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Benefit from proven expertise and deep
+                    understanding of both technical and business aspects of Palantir Foundry implementations.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Proven Track Record</h3>
+                        <p class="text-stone-600">Success stories with major clients including Swiss Re, Credit Suisse,
+                            and Julius Baer across reinsurance, finance, and enterprise analytics.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Full-Stack Expertise</h3>
+                        <p class="text-stone-600">From ontology design and pipeline development to ML implementation and
+                            cross-platform integration.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Vendor-Agnostic</h3>
+                        <p class="text-stone-600">Expertise in ensuring portability and avoiding lock-in, proven by
+                            successful model migrations to Databricks and other platforms.</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-lg shadow-md border border-stone-200 transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="text-xl font-bold mb-2 text-blue-600">Performance Focus</h3>
+                        <p class="text-stone-600">Deep experience in query optimization and scalable architecture,
+                            delivering high-performance Foundry solutions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="next-steps" class="text-center bg-blue-600 text-white py-16 rounded-lg">
+                <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Foundry Implementation?</h2>
+                <p class="mb-8 max-w-2xl mx-auto">Let's discuss how I can help you leverage Palantir Foundry for your
+                    organization's data and AI needs. From initial planning to full-scale implementations, I provide
+                    expert guidance every step of the way.</p>
+                <a href="mailto:keshav@nxtreasury.com?subject=Palantir Foundry Consulting Inquiry">
+                    <button
+                        class="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-stone-100 transition-colors duration-300">Contact
+                        Me for a Consultation</button>
+                </a>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 text-stone-500">
+            <p>&copy; 2025 Keshav Singh - Palantir Foundry Consulting Services. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const steps = {
+                foundry: document.getElementById('step-foundry'),
+                onnx: document.getElementById('step-onnx'),
+                databricks: document.getElementById('step-databricks')
+            };
+
+            const details = {
+                foundry: document.getElementById('details-foundry'),
+                onnx: document.getElementById('details-onnx'),
+                databricks: document.getElementById('details-databricks')
+            };
+
+            const allSteps = Object.values(steps);
+            const allDetails = Object.values(details);
+
+            function showDetails(stepKey) {
+                allSteps.forEach(step => step.classList.remove('active-step'));
+                allDetails.forEach(detail => detail.classList.remove('visible'));
+
+                if (steps[stepKey] && details[stepKey]) {
+                    steps[stepKey].classList.add('active-step');
+                    details[stepKey].classList.add('visible');
+                }
+            }
+
+            Object.keys(steps).forEach(key => {
+                steps[key].addEventListener('click', () => showDetails(key));
+            });
+
+            showDetails('foundry');
+        });
+    </script>
+</body>
+
+</html>
