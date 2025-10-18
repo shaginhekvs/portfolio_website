@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Demo - Keshav Singh</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --background: #fefefe;
+            --surface: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --hover: #f3f4f6;
+        }
+
+        body {
+            background: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #202124;
+        }
+
+        .navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: 0 1px 3px rgba(60, 64, 67, 0.08);
+        }
+
+        .navbar-brand {
+            color: #202124 !important;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            color: #202124;
+            background: #ffffff;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.125rem;
+            color: #5f6368;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .user-details-bar {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .user-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-detail strong {
+            color: #202124;
+        }
+
+        .chat-container {
+            height: calc(100vh - 180px);
+            max-height: none;
+        }
+
+        .chat-sidebar {
+            display: none;
+        }
+
+        .session-setup {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .setup-title {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .setup-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .username-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: var(--surface);
+            color: var(--text-primary);
+        }
+
+        .username-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .start-button {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .start-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-main {
+            flex: 1;
+            max-width: 800px;
+        }
+
+        .chat-container {
+            background: var(--surface);
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            max-height: 600px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: var(--background);
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-content {
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            max-width: 75%;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 0.25rem;
+        }
+
+        .ai-message {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 0.25rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .chat-input-area {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+        }
+
+        .chat-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .chat-input {
+            width: 100%;
+            min-height: 3rem;
+            max-height: 6rem;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: none;
+            transition: all 0.2s ease;
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .send-button {
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .send-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .send-button:active {
+            transform: translateY(0);
+        }
+
+        .typing-indicator {
+            display: flex;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            gap: 2px;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            80%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+
+            40% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 1024px) {
+            .chat-wrapper {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .chat-sidebar {
+                width: 100%;
+                max-width: 800px;
+            }
+
+            .welcome-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .welcome-section {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .chat-container {
+                height: 70vh;
+                border-radius: 0;
+            }
+
+            .chat-messages {
+                padding: 1rem;
+            }
+
+            .chat-input-area {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: #f4f4f4;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">Keshav Singh</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">← Back to Portfolio</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <h1 class="welcome-title">AI Chat Demo</h1>
+        <p class="welcome-subtitle">Experience conversational AI powered by the DeepSeek R1 model through OpenRouter</p>
+    </section>
+
+    <!-- User Details Bar (shown when chat is active) -->
+    <div id="user-details-bar" class="user-details-bar" style="display: none;">
+        <div class="user-detail">
+            <i class="fas fa-user"></i>
+            <span>User: <strong id="user-id-display-top">None</strong></span>
+        </div>
+        <div class="user-detail">
+            <i class="fas fa-comments"></i>
+            <span>Messages: <strong id="message-count-top">0</strong></span>
+        </div>
+        <div class="user-detail">
+            <i class="fas fa-brain"></i>
+            <span>Model: <strong>DeepSeek R1</strong></span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="chat-wrapper">
+        <!-- Main Chat Area (Full Width) -->
+        <div class="chat-main" style="max-width: none; width: 100%;">
+            <!-- Session Setup -->
+            <div id="session-setup" class="session-setup">
+                <h2 class="setup-title">Welcome to AI Chat</h2>
+                <p class="setup-subtitle">Enter a username to start your conversation, or leave it blank for a random
+                    ID.</p>
+                <input type="text" id="username-input" class="username-input" placeholder="Enter username (optional)">
+                <button id="start-chat-button" class="start-button">Start Conversation</button>
+            </div>
+
+            <!-- Chat Interface -->
+            <div id="chat-interface" style="display: none;">
+                <div class="chat-container"
+                    style="max-width: 100%; margin: 0; border-radius: 0; height: calc(100vh - 120px);">
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="ai-message message">
+                            <div class="message-label">AI Assistant</div>
+                            <div class="message-content">Hello! I'm an AI powered by the DeepSeek R1 model. I'm here to
+                                help with questions, discussions, or any topic you'd like to explore. How can I assist
+                                you today?</div>
+                        </div>
+                    </div>
+
+                    <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                        <div class="typing-dots">
+                            <span class="typing-dot"></span>
+                            <span class="typing-dot"></span>
+                            <span class="typing-dot"></span>
+                        </div>
+                        AI is typing...
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="chat-input-container">
+                            <div class="chat-input-wrapper">
+                                <textarea id="chat-input" class="chat-input" placeholder="Type your message here..."
+                                    rows="1" maxlength="500"></textarea>
+                            </div>
+                            <button id="send-button" class="send-button">
+                                <i class="fas fa-paper-plane"></i>
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>This demo uses the free tier of the OpenRouter DeepSeek R1 model. Messages are limited to 500 characters.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sessionSetup = document.getElementById('session-setup');
+            const chatInterface = document.getElementById('chat-interface');
+            const startChatButton = document.getElementById('start-chat-button');
+            const usernameInput = document.getElementById('username-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-button');
+            const typingIndicator = document.getElementById('typing-indicator');
+
+            let userId = null;
+
+            // Initialize from localStorage if available
+            const savedUserId = localStorage.getItem('chat_user_id');
+            if (savedUserId) {
+                userId = savedUserId;
+                sessionSetup.style.display = 'none';
+                chatInterface.style.display = 'block';
+            }
+
+            // Track chat histories locally (for sidebar display)
+            let chatHistories = {};
+
+            function addMessage(content, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+
+                const labelDiv = document.createElement('div');
+                labelDiv.className = 'message-label';
+                labelDiv.textContent = isUser ? 'You' : 'AI Assistant';
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = isUser ? 'message-content user-message' : 'message-content ai-message';
+                contentDiv.textContent = content;
+
+                messageDiv.appendChild(labelDiv);
+                messageDiv.appendChild(contentDiv);
+
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Update local history tracking for sidebar
+                if (!chatHistories[userId]) {
+                    chatHistories[userId] = [];
+                }
+                chatHistories[userId].push({ role: isUser ? 'user' : 'assistant', content: content });
+
+                // Update top bar message count (only if elements exist)
+                const messageCountEl = document.getElementById('message-count-top');
+                if (messageCountEl) {
+                    messageCountEl.textContent = chatHistories[userId].length;
+                }
+            }
+
+            startChatButton.addEventListener('click', function () {
+                const username = usernameInput.value.trim();
+                if (username) {
+                    userId = username;
+                } else {
+                    userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                }
+
+                localStorage.setItem('chat_user_id', userId);
+                sessionSetup.style.display = 'none';
+                chatInterface.style.display = 'block';
+                document.getElementById('user-details-bar').style.display = 'flex';
+                document.getElementById('user-id-display-top').textContent = userId;
+            });
+
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (!message || !userId) return;
+
+                addMessage(message, true);
+                chatInput.value = '';
+
+                typingIndicator.style.display = 'block';
+
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: message, user_id: userId })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        addMessage(data.message, false);
+                    } else {
+                        addMessage(`Error: ${data.error}`, false);
+                    }
+                } catch (error) {
+                    addMessage(`Error: ${error.message}`, false);
+                } finally {
+                    typingIndicator.style.display = 'none';
+                }
+            }
+
+            // Add event listeners for send button and Enter key
+            sendButton.addEventListener('click', function () {
+                console.log('Send button clicked');
+                sendMessage();
+            });
+
+            chatInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    console.log('Enter key pressed');
+                    sendMessage();
+                }
+            });
+
+            // Add debugging to check if elements exist
+            console.log('Elements found:', {
+                sendButton: sendButton,
+                chatInput: chatInput,
+                userId: userId
+            });
+        });
+    </script>
+</body>
+
+</html>

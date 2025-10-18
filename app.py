@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify, session
+import os
+import requests
 
 app = Flask(__name__)
+
+# In-memory storage for chat histories (in production, use a database)
+chat_histories = {}
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-session-key-change-in-production-12345')
+app.config['SESSION_COOKIE_SECURE'] = False  # Allow HTTP for development
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 @app.route('/')
 def index():
@@ -231,6 +240,88 @@ def palantir_model_change():
 @app.route('/foundry-consultant')
 def foundry_consultant():
     return render_template('foundry-consultant.html')
+
+@app.route('/chat-demo')
+def chat_demo():
+    return render_template('chat-demo.html')
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    data = request.get_json()
+    user_message = data.get('message', '')
+    user_id = data.get('user_id', '')
+
+    print(f"Received user_id from client: {user_id}")
+
+    if not user_message:
+        return jsonify({'error': 'No message provided'}), 400
+
+    if not user_id:
+        return jsonify({'error': 'No user_id provided'}), 400
+
+    # Initialize user history in memory storage if not exists
+    if user_id not in chat_histories:
+        chat_histories[user_id] = []
+        print(f"Initialized new chat_history for user: {user_id}")
+
+    print(f"Chat history before adding user message: {len(chat_histories[user_id])} messages")
+    print(f"Current chat_history: {chat_histories[user_id]}")
+
+    # Add user message to history
+    chat_histories[user_id].append({'role': 'user', 'content': user_message})
+
+    # Trim history to stay within context window (132K tokens ≈ 100 messages)
+    # Estimate: 1 message ≈ 1320 tokens (4 chars per token average)
+    MAX_MESSAGES = 80  # Conservative limit to stay well under 132K tokens
+
+    if len(chat_histories[user_id]) >= MAX_MESSAGES:
+        chat_histories[user_id] = chat_histories[user_id][-MAX_MESSAGES + 1:]  # Keep last 79 to leave room for response
+        print(f"Trimmed chat history to last {MAX_MESSAGES - 1} messages to stay within context window")
+
+    openrouter_key = os.getenv('openrouterKey')
+    if not openrouter_key:
+        return jsonify({'error': 'OpenRouter API key not found in environment variables'}), 500
+
+    headers = {
+        'Authorization': f'Bearer {openrouter_key}',
+        'Content-Type': 'application/json'
+    }
+
+    payload = {
+        'model': 'tngtech/deepseek-r1t2-chimera:free',
+        'messages': chat_histories[user_id]  # Send full conversation history
+    }
+
+    print(f"Sending payload to OpenRouter: {payload}")  # Log payload for debugging
+
+    try:
+        response = requests.post(
+            'https://openrouter.ai/api/v1/chat/completions',
+            headers=headers,
+            json=payload
+        )
+
+        if response.status_code == 200:
+            result = response.json()
+            ai_message = result['choices'][0]['message']['content']
+
+            # Add AI message to history
+            chat_histories[user_id].append({'role': 'assistant', 'content': ai_message})
+
+            # Trim history to stay within context window after adding AI response
+            if len(chat_histories[user_id]) > MAX_MESSAGES:
+                chat_histories[user_id] = chat_histories[user_id][-MAX_MESSAGES:]
+                print(f"Trimmed chat history to last {MAX_MESSAGES} messages for user {user_id} to stay within context window")
+
+            print(f"Full chat history after adding AI response for user {user_id}: ")
+            print(chat_histories[user_id])
+
+            return jsonify({'message': ai_message})
+        else:
+            return jsonify({'error': f'OpenRouter API error: {response.status_code}'}), response.status_code
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == '__main__':
